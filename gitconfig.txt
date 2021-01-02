@@ -1,7 +1,7 @@
 [user]
-	email = renatozanelato@yahoo.com.br
-    username = renatozanelato
-	name = zana
+	email = email@email.com
+    username = xusername
+	name = xname
 
 # colour output for diffs
 
