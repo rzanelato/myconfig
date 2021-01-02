@@ -1,0 +1,93 @@
+#HELPING COMMANDS
+
+Commands GIT to push code after review with same commit
+git log
+git status
+git commit --amend
+git push --force-with-lease
+
+Commands GIT to rebase
+git checkout {branch}
+git fetch --all
+git rebase origin/develop or git rebase <from> <to>
+git status
+git rebase --continue
+git status
+git push
+git push --force-with-lease
+
+Commands for squash
+git rebase -i head~N (N is the number of commits to squash
+- Mark squash or fixup
+- Save and quit
+git add <file> (Only if there is a merge to do)
+git rebase --continue
+git push --force-with-lease
+
+Commands for stash
+git stash (save classes in a local repository)
+git stash list
+git stash apply <stash{0}>(bring back the classes)
+git stash pop - to bring back the last
+git stash drop to remove the last stash
+
+Commands to learn. [Alias]
+[alias]
+  publica = !git checkout master && git pull && git checkout dev && git rebase master && git checkout master && git merge dev && git push
+git config --global alias.ck checkout
+git config --global alias.ft 'fetch --all'
+
+Command for removing branch
+git branch -d(remove) -D (remove forçado) uma branch remota
+
+Command to clean branchs that don't exist in remote
+git fetch -p && for branch in `git branch -vv | grep ': gone]' | awk '{print $1}'`; do git branch -D $branch; done
+
+Command to clean a commit in develop by accident
+git reset --hard origin/develop
+
+
+#BASIC COMMANDS
+
+usage: git [--version] [--help] [-C <path>] [-c name=value]
+           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
+           [-p | --paginate | --no-pager] [--no-replace-objects] [--bare]
+           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]
+           <command> [<args>]
+
+These are common Git commands used in various situations:
+
+start a working area (see also: git help tutorial)
+   clone      Clone a repository into a new directory
+   init       Create an empty Git repository or reinitialize an existing one
+
+work on the current change (see also: git help everyday)
+   add        Add file contents to the index
+   mv         Move or rename a file, a directory, or a symlink
+   reset      Reset current HEAD to the specified state
+   rm         Remove files from the working tree and from the index
+
+examine the history and state (see also: git help revisions)
+   bisect     Use binary search to find the commit that introduced a bug
+   grep       Print lines matching a pattern
+   log        Show commit logs
+   show       Show various types of objects
+   status     Show the working tree status
+
+grow, mark and tweak your common history
+   branch     List, create, or delete branches
+   checkout   Switch branches or restore working tree files
+   commit     Record changes to the repository
+   diff       Show changes between commits, commit and working tree, etc
+   merge      Join two or more development histories together
+   rebase     Reapply commits on top of another base tip
+   tag        Create, list, delete or verify a tag object signed with GPG
+
+collaborate (see also: git help workflows)
+   fetch      Download objects and refs from another repository
+   pull       Fetch from and integrate with another repository or a local branch
+   push       Update remote refs along with associated objects
+
+'git help -a' and 'git help -g' list available subcommands and some
+concept guides. See 'git help <command>' or 'git help <concept>'
+to read about a specific subcommand or concept.
