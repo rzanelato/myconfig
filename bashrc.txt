@@ -1,0 +1,4 @@
+# Some alias
+
+alias jt='cd ~/workspace_java/javatests/'
+alias wj='cd ~/workspace_java/'
