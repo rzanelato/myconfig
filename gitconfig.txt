@@ -30,7 +30,7 @@
 
 [core]
     whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
-    editor = mate -w
+    editor = vim
     
 [alias]
 	br = branch
