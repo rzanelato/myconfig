@@ -1,1 +1,45 @@
 ##Linux command helper
+###Comandos super basicos Linux
+pwd = Ver que pasta esta.
+ls = Ver pastas e arquivos
+cd = comando em geral
+mkdir = criar pasta
+rm = remover (-Rf)
+cp = copiar <origem> <destino>
+echo = mostrar em tela
+cat = abrir o arquivo por tela, le em memoria
+
+~/ = volta pra raiz do usuario
+./ = referencia pasta atual
+../ referencia pasta anterior
+
+#Usado para combinar comandos, pode usar uma vez ou duas
+ | = um ou, caso o primeiro falhe, o segundo executa igual  
+ & = um e, caso o primeiro falhe, o segundo nao executa
+
+#Usando > adicionar no arquivo, sobrescrevendo. >> adiciona sem recriar o arquivo 
+ 
+### Comandos mais avançados
+mount = 
+unmount = 
+df -h = mostrar dispositivos
+ps aux = process
+
+touch = ver se existe, se nao criar ele
+more = parece o cat. 
+less = olhar o arquivo mas nao em memoria, faz por stream
+ln = link(atalho). Cria referencia do arquivo
+tail = ler o final do arquivo. -f fica esperando o final do arquivo
+grep = filtrar por relugar expression
+awk = filtro de resultado mais avançado. '{ print $2}' mostra a segunda coluna do resultado
+set | less = ver a lista de variaveis de ambiente
+
+chmod = permissoes
+which = saber de onde o comando esta sendo chamado
+
+##Comandos que nao sei explicar
+systemctl
+service
+usermod 
+cat /proc/<pid>/cgroup
+eval "$(ssh-agent -s)"
