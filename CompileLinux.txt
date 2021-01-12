@@ -1,0 +1,25 @@
+# Time in seconds
+SECONDS=0
+# Error variable
+hasError=""
+# Folder path
+DIR=/C/DAF
+# Maven sequence. -T 1C it is for threading execution
+mvn -T 1C clean install -f $DIR/daf-core/dataflow-modules/pom.xml || hasError="DAF"
+mvn -T 1C clean install -f $DIR/daf-partner-webapp/pom.xml || hasError="Webapp"
+
+# Total in seconds used.
+duration=$SECONDS
+
+echo 
+echo
+# Condition for Errors
+if [[ $hasError = "" ]];
+	then 
+		echo "Building Successed" 
+	else 
+		echo "===== ERROR ======"
+		echo "Error in module: $hasError" 
+fi
+echo 
+echo "Total compiling: $(($duration / 60)) minutes and $(($duration % 60)) seconds."
