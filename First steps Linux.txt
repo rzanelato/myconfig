@@ -1,0 +1,64 @@
+## Git
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install git-all -y
+
+
+## ZSH (Oh My ZSH) and GIT
+sudo apt-get install zsh
+sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+## Google Chrome
+wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+sudo apt update
+sudo apt install -y google-chrome-stable
+
+## Java Openjdk 15
+sudo add-apt-repository ppa:openjdk-r/ppa
+sudo apt update
+sudo apt install openjdk-15-jdk
+sudo apt install openjdk-15-jre
+
+## Maven
+sudo apt install maven
+
+## snap
+sudo rm /etc/apt/preferences.d/nosnap.pref
+sudo apt update
+sudo apt install snapd
+
+## Intellij with snap
+sudo snap install intellij-idea-community --classic
+
+## VS Code 
+sudo apt install apt-transport-https
+curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
+sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+cat  /etc/apt/sources.list.d/vscode.list
+sudo apt update
+sudo apt install code
+
+## NodeJS
+sudo apt-get update
+sudo apt install curl build-essential
+curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+sudo apt install -y nodejs
+
+## VirtualBox
+wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
+echo "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian focal contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
+sudo apt update
+sudo apt install -y virtualbox-6.1
+sudo systemctl status vboxdrv
+
+## SSH key
+cd ~/.ssh
+ssh-keygen -t ed25519 -C "your_email@example.com"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+
+
