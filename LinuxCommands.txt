@@ -43,3 +43,6 @@ service
 usermod 
 cat /proc/<pid>/cgroup
 eval "$(ssh-agent -s)"
+
+##Comando para ver lista de PPA adicionados para ser removidos (delete o necessario e depois 'sudo apt update')
+cd /etc/apt/sources.list.d
