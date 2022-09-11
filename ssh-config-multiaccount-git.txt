@@ -1,0 +1,20 @@
+Host github.com
+  Hostname github.com
+  User git
+  IdentityFile ~/.ssh/account1
+  PreferredAuthentications publickey
+  AddKeysToAgent yes
+
+
+Host github.com-account2
+  Hostname github.com
+  User git
+  IdentityFile ~/.ssh/account2
+  PreferredAuthentications publickey
+  AddKeysToAgent yes
+
+
+
+### NOTE ###
+Always type in `git clone` the name of host
+git clone git@github.com-account2:account2user/project.git
