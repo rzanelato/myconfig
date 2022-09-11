@@ -34,6 +34,7 @@
     excludesFile = ~/.gitignore
     
 [alias]
+	aa = add .
 	br = branch
 	st = status -sb
 	ck = checkout
@@ -41,6 +42,7 @@
 	ca = commit --amend --no-edit
 	pf = push --force-with-lease
 	pl = pull
+	ps = push
 	ft = fetch --all
 	lg = log -p
 	lo = log --graph --oneline --decorate=short --branches='*'
