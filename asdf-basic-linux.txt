@@ -1,0 +1,18 @@
+# Page
+https://alanvardy.com/post/asdf-on-arch
+
+# Execute
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+echo -e '\n. $HOME/.asdf/asdf.sh' >> ~/.zshrc
+
+## Plugins
+# Java
+asdf plugin-add java https://github.com/halcyon/asdf-java.git
+asdf install java openjdk-18.0.2
+asdf global java openjdk-18.0.2
+
+# Python
+asdf plugin-add python https://github.com/asdf-community/asdf-python.git
+asdf install python 3.10.7
+asdf global python 3.10.7
+pip3.10 install boto3
