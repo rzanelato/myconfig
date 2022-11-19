@@ -1,66 +1,40 @@
-## Git
+################ Git ################
 sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get install git-all -y
 
+################################################
 
-## ZSH (Oh My ZSH) and GIT
+################ ZSH with OhMyZsh and Plugins ################
+# Page
+https://github.com/ohmyzsh/ohmyzsh
+
+# Install ZSH
 sudo apt-get install zsh
-sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-# make default
+
+# Make zsh default
 sudo chsh -s $(which zsh)
 
-## Vim
-sudo apt install vim
+# Execute to install OhMyZsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-## Google Chrome
-wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-sudo apt update
-sudo apt install -y google-chrome-stable
+# Plugins
+# zsh-autosuggestions - https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md
+git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/plugins/zsh-autosuggestions
 
-## Java Openjdk 15
-sudo add-apt-repository ppa:openjdk-r/ppa
-sudo apt update
-sudo apt install openjdk-15-jdk
-sudo apt install openjdk-15-jre
+# zsh-syntax-highlighting - https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/plugins/zsh-syntax-highlighting
 
-## Maven
-sudo apt install maven
+# Add plugins in ~/.zshrc
+plugins=(
+    git
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+)
 
-## snap
-sudo rm /etc/apt/preferences.d/nosnap.pref
-sudo apt update
-sudo apt install snapd
+################################################
 
-## Intellij with snap
-sudo snap install intellij-idea-community --classic
-
-## VS Code 
-sudo apt install apt-transport-https
-curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
-sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
-sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
-cat  /etc/apt/sources.list.d/vscode.list
-sudo apt update
-sudo apt install code
-
-## NodeJS
-sudo apt-get update
-sudo apt install curl build-essential
-curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
-curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
-curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-sudo apt install -y nodejs
-
-## VirtualBox
-wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
-echo "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian focal contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
-sudo apt update
-sudo apt install -y virtualbox-6.1
-sudo systemctl status vboxdrv
-
-## SSH key
+################ SSH key ################
 cd ~/.ssh
 mkdir .ssh/
 sudo chmod 700 ~/.ssh
@@ -70,7 +44,114 @@ ssh-add ~/.ssh/id_ed25519
 ssh-add -K ~/.ssh/id_ed25519 - pin
 ssh-add -k ~/.ssh/id_ed25519 - passphrase
 
-################ Optional####################
+################################################
+
+## ASDF (Package manager) - https://asdf-vm.com/guide/getting-started.html
+# Page
+https://alanvardy.com/post/asdf-on-arch
+
+# Execute
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+echo -e '\n. $HOME/.asdf/asdf.sh' >> ~/.zshrc
+
+## Plugins
+# Java
+asdf plugin-add java https://github.com/halcyon/asdf-java.git
+asdf install java openjdk-18.0.2
+asdf global java openjdk-18.0.2
+
+# Python
+asdf plugin-add python https://github.com/asdf-community/asdf-python.git
+asdf install python 3.10.7
+asdf global python 3.10.7
+pip3.10 install boto3
+
+# Add plugin in ZSH 
+plugins=(asdf)
+
+################################################
+
+################ Flatpak and apps ################
+sudo apt install flatpak -y
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+## VSCode by flathub
+flatpak install flathub "com.visualstudio.code" --assumeyes
+
+## Flameshot
+flatpak install flathub "org.flameshot.Flameshot" --assumeyes
+
+################################################
+
+################ Intellij by jetbrains-toolkit ################
+sudo wget -c "https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.25.12627.tar.gz" -P "/tmp/jetbrains/"
+sudo tar -xzf /tmp/jetbrains/jetbrains-toolbox-1.26.5.13419.tar.gz -C /opt/jetbrains-toolbox --strip-components=1
+sudo tar -xzf /tmp/jetbrains/jetbrains-toolbox-1.26.5.13419.tar.gz -C /tmp/jetbrains/
+cd /tmp/jetbrains/jetbrains-toolbox-1.26.5.13419 && ./jetbrains-toolbox
+
+## Intellij with snap (bad version)
+sudo snap install intellij-idea-community --classic
+
+################################################
+
+################ Vim ################
+sudo apt install vim
+sudo apt install neovim
+
+################################################
+
+################ Maven ################
+sudo apt install maven
+
+################################################
+
+################ Java By PPA ################
+sudo add-apt-repository ppa:openjdk-r/ppa
+sudo apt update
+sudo apt install openjdk-15-jdk
+sudo apt install openjdk-15-jre
+
+################################################
+
+################ Google Chrome ################
+## By Download 
+sudo wget -c "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" -P "/tmp/googlechrome"
+sudo dpkg -i /tmp/googlechrome/google-chrome-stable_current_amd64.deb
+
+## By apt
+wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+sudo apt update
+sudo apt install -y google-chrome-stable
+
+
+################ SNAP ################
+sudo rm /etc/apt/preferences.d/nosnap.pref
+sudo apt update
+sudo apt install snapd
+
+################################################
+
+################ NodeJS ################
+sudo apt-get update
+sudo apt install curl build-essential
+curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+sudo apt install -y nodejs
+
+################################################
+ 
+################ VirtualBox ################
+wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
+echo "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian focal contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
+sudo apt update
+sudo apt install -y virtualbox-6.1
+sudo systemctl status vboxdrv
+
+################################################
+
+################ Optional ################
 
 ## Microsoft Edge
 curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
@@ -79,9 +160,29 @@ sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/edge sta
 sudo rm microsoft.gpg
 sudo apt update && sudo apt install microsoft-edge-dev
 
-## ASDF (Package manager) - https://asdf-vm.com/#/plugins-all
-git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.0
-echo '. $HOME/.asdf/asdf.sh' >> ~/.zshrc
-echo '. $HOME/.asdf/completions/asdf.bash' >> ~/.zshrc
-# plugins=(git asdf)
-# JAVA -> asdf plugin-add java https://github.com/halcyon/asdf-java.git
+################ Good Plugins for VSCode ################
+Dracula
+One Dark Pro (alternativa)
+TabNine
+Visual Studio IntelliCode (alternativa)
+Bracket Pair Colorizer 2
+Code Spell Checker
+Auto Rename Tag
+Bookmarks
+Gitlens
+Rest Client
+Settings Sync
+Color Highlight
+
+################################################
+
+################ VS Code Manually ################
+sudo apt install apt-transport-https
+curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
+sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+cat  /etc/apt/sources.list.d/vscode.list
+sudo apt update
+sudo apt install code
+
+################################################

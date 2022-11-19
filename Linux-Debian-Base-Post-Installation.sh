@@ -1,54 +1,42 @@
 #!/bin/bash
 # ----------------------------- Variables ----------------------------- #
 #DIR
-DIR_DOWNLOADS="/tmp/programs/"
+DIR_DOWNLOADS="/tmp/shell_programs/"
 DIR_JETBRAINS="/opt/jetbrains-toolbox"
+DIR_SSH="$HOME/.ssh"
 
 #Version
-JETBRAIN_VERSION="jetbrains-toolbox-1.25.12627"
+JETBRAIN_VERSION="jetbrains-toolbox-1.26.5.13419"
 
 #URL
 URL_INTELLIJ="https://download.jetbrains.com/toolbox/"$JETBRAIN_VERSION".tar.gz"
-URL_GOOGLE_CHROME="https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
-
-#PPA
-PPA_JAVA="ppa:openjdk-r/ppa"
 
 #List Programs
 PROGRAMS_APT=(
 	git-all
-	zsh
-	vim
+  zsh
+  curl
+  vim
 	maven 
-	openjdk-15-jdk 
-	openjdk-15-jre
-	snapd
-  	libfuse2
 )
 
 PROGRAMS_FLATPAK=(
 	com.visualstudio.code
 	org.flameshot.Flameshot
 )
-
 # ---------------------------------------------------------------------- #
 
-# ----------------------------- Required ----------------------------- #
+# ------------------------------ Required ------------------------------ #
 ## Unlock files from apt ##
 sudo rm /var/lib/dpkg/lock-frontend
 sudo rm /var/cache/apt/archives/lock
 
-## Install curl
-sudo apt install curl
-
-## Install flatpak
-sudo apt install flatpak -y
-
 ## Update Repository ##
 sudo apt update -y
 
-## Add external repositories ##
-sudo apt-add-repository "$PPA_JAVA" -y
+## Install flatpak
+echo "Installing flatpak...."
+sudo apt install -y flatpak
 
 ## Add flathub for flatpak
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
@@ -56,27 +44,24 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 ## Update repositories ##
 sudo apt update -y
 
-## Prepare diretory ##
+## Create and prepare directories ##
 sudo mkdir "$DIR_DOWNLOADS"
 sudo mkdir "$DIR_JETBRAINS"
-# ---------------------------------------------------------------------- #
-
-# ----------------------------- Execution ----------------------------- #
-
-
+sudo mkdir "$DIR_SSH"
+sudo chmod 700 $DIR_SSH
 
 ## Download and install external programs ##
-sudo wget -c "$URL_GOOGLE_CHROME" -P "$DIR_DOWNLOADS"
 sudo wget -c "$URL_INTELLIJ" -P "$DIR_DOWNLOADS"
+# ---------------------------------------------------------------------- #
 
-## Install packages .deb download before ##
-sudo dpkg -i $DIR_DOWNLOADS/*.deb
+# ----------------------------- Execution ------------------------------ #
+sudo apt upgrade -y
 
-
-# Install apt programs
+## Install apt programs ##
 for program_apt in ${PROGRAMS_APT[@]}; do
   if ! dpkg -l | grep -q $program_apt; then # Only install if does not exist
-    sudo apt install "$program_apt" -y
+    echo "Installing apt -> $program_apt...."
+    sudo apt install -y "$program_apt"
   else
     echo "[Installed] - $program_apt"
   fi
@@ -85,37 +70,50 @@ done
 ## Install flatpak programs ##
 for program_flatpak in ${PROGRAMS_FLATPAK[@]}; do
   if ! flatpak list | grep -q $program_flatpak; then # Only install if does not exist
+    echo "Installing flatpak -> $program_flatpak...."
     flatpak install flathub "$program_flatpak" --assumeyes
   else
     echo "[Installed] - $program_flatpak"
   fi
 done
-# ---------------------------------------------------------------------- #
 
-# --------------------------- Special Installations #--------------------------- #
+## ------ Specific installation ------ ##
 ## Jetbrains ##
+echo "Installing jetbrains...."
 sudo tar -xzf ${DIR_DOWNLOADS}${JETBRAIN_VERSION}.tar.gz -C ${DIR_JETBRAINS} --strip-components=1
 sudo tar -xzf ${DIR_DOWNLOADS}${JETBRAIN_VERSION}.tar.gz -C ${DIR_DOWNLOADS}
 cd ${DIR_DOWNLOADS}${JETBRAIN_VERSION} && ./jetbrains-toolbox
 
-#ohmyzsh - https://github.com/ohmyzsh/ohmyzsh
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+## ohMyZsh ##
+echo "Installing OhMyZsh...."
+sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+sudo chsh -s $(which zsh)
 
-#asdf - https://asdf-vm.com/guide/getting-started.html
-git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+## plugins zsh ##
+git clone https://github.com/zsh-users/zsh-autosuggestions $HOME/.oh-my-zsh/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.oh-my-zsh/plugins/zsh-syntax-highlighting
+echo -e '\n #plugins=( git zsh-autosuggestions zsh-syntax-highlighting )' >> $HOME/.zshrc
 
-#zsh-syntax-highlighting -  https://github.com/zsh-users/zsh-syntax-highlighting
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/plugins
+## asdf ##
+echo "Installing asdf...."
+git clone https://github.com/asdf-vm/asdf.git $HOME/.asdf
+echo -e '\n. $HOME/.asdf/asdf.sh' >> $HOME/.zshrc
 
-#zsh-autocomplete - https://github.com/marlonrichert/zsh-autocomplete
-https://github.com/marlonrichert/zsh-autocomplete.git ~/.oh-my-zsh/plugins
+## plugins asdf ##
+# Java
+asdf plugin-add java https://github.com/halcyon/asdf-java.git
+asdf install java openjdk-18.0.2
+asdf global java openjdk-18.0.2
 
+# Python
+asdf plugin-add python https://github.com/asdf-community/asdf-python.git
+asdf install python 3.10.7
+asdf global python 3.10.7
 # ---------------------------------------------------------------------- #
 
-# ----------------------------- Post-Installations #----------------------------- #
+# ------------------------- Post-Installations ------------------------- #
 ## Conclude, update and clean ##
 sudo apt update && sudo apt dist-upgrade -y
-flatpak update
-sudo apt autoclean
+sudo apt autoclean -y
 sudo apt autoremove -y
 # ---------------------------------------------------------------------- #
