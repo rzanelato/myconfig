@@ -23,3 +23,7 @@ Host github.com-account2
 ### NOTE ###
 Always type in `git clone` the name of host
 git clone git@github.com-account2:account2user/project.git
+
+### Check connection
+ssh -T git@github.com
+ssh -T git@github.com-account2
