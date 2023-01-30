@@ -105,6 +105,18 @@ sudo apt install maven
 
 ################################################
 
+################ YAY Manjaro ################
+# Link - https://www.tecmint.com/install-yay-aur-helper-in-arch-linux-and-manjaro/
+sudo pacman -S git
+cd /opt
+sudo git clone https://aur.archlinux.org/yay-git.git /opt
+sudo chown -R username:username ./yay-git
+cd yay-git
+makepkg -si
+
+sudo yay -Syu
+################################################
+
 ################ Java By PPA ################
 sudo add-apt-repository ppa:openjdk-r/ppa
 sudo apt update
