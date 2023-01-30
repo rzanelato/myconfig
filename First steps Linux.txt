@@ -117,6 +117,19 @@ makepkg -si
 sudo yay -Syu
 ################################################
 
+################ Rust ################
+# Link - https://www.linuxcapable.com/how-to-install-rust-on-manjaro-21-linux/
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# Add in .zshrc
+source ~/.profile
+source ~/.cargo/env
+
+# update rust
+rustc -V
+rustup update
+################################################
+
 ################ Java By PPA ################
 sudo add-apt-repository ppa:openjdk-r/ppa
 sudo apt update
