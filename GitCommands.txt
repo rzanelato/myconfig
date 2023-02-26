@@ -3,7 +3,7 @@
 Commands GIT to push code after review with same commit
 git log
 git status
-git commit --amend
+git commit --amend or git commit --amend --no-edit
 git push --force-with-lease
 
 Commands GIT to rebase
@@ -11,18 +11,25 @@ git checkout {branch}
 git fetch --all
 git rebase origin/develop or git rebase <from> <to>
 git status
+If have some changes
+Change and then git add .
 git rebase --continue
 git status
-git push
-git push --force-with-lease
+git push or git push --force-with-lease
 
 Commands for squash
-git rebase -i head~N (N is the number of commits to squash
+git rebase -i head~N (N is the number of commits to squash)
 - Mark squash or fixup
 - Save and quit
 git add <file> (Only if there is a merge to do)
 git rebase --continue
 git push --force-with-lease
+
+Fix branch after rebase with different commits
+git fetch --all
+Take note of commits ids
+git reset --hard <common commit between branches>
+git cherrypick <commit id of new development>
 
 Commands for stash
 git stash (save classes in a local repository)
@@ -38,8 +45,8 @@ git config --global alias.ck checkout
 git config --global alias.ft 'fetch --all'
 
 Command for removing branch
-git branch -d(remove) -D (remove forçado) uma branch remota
-
+git branch -d(remove) -D (force remove) remote branch
+ 
 Command to clean branchs that don't exist in remote
 git fetch -p && for branch in `git branch -vv | grep ': gone]' | awk '{print $1}'`; do git branch -D $branch; done
 
