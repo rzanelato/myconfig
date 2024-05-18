@@ -6,18 +6,18 @@ DIR_JETBRAINS="/opt/jetbrains-toolbox"
 DIR_SSH="$HOME/.ssh"
 
 #Version
-JETBRAIN_VERSION="jetbrains-toolbox-1.26.5.13419"
+JETBRAIN_VERSION="2.3.1.31116"
+JETBRAIN="jetbrains-toolbox-$JETBRAIN_VERSION"
 
 #URL
-URL_INTELLIJ="https://download.jetbrains.com/toolbox/"$JETBRAIN_VERSION".tar.gz"
+URL_INTELLIJ="https://download.jetbrains.com/toolbox/"$JETBRAIN".tar.gz"
 
 #List Programs
 PROGRAMS_APT=(
 	git-all
-  zsh
-  curl
-  vim
-	maven 
+	zsh
+	curl
+	vim
 )
 
 PROGRAMS_FLATPAK=(
@@ -80,9 +80,9 @@ done
 ## ------ Specific installation ------ ##
 ## Jetbrains ##
 echo "Installing jetbrains...."
-sudo tar -xzf ${DIR_DOWNLOADS}${JETBRAIN_VERSION}.tar.gz -C ${DIR_JETBRAINS} --strip-components=1
-sudo tar -xzf ${DIR_DOWNLOADS}${JETBRAIN_VERSION}.tar.gz -C ${DIR_DOWNLOADS}
-cd ${DIR_DOWNLOADS}${JETBRAIN_VERSION} && ./jetbrains-toolbox
+sudo tar -xzf ${DIR_DOWNLOADS}${JETBRAIN}.tar.gz -C ${DIR_JETBRAINS} --strip-components=1
+sudo tar -xzf ${DIR_DOWNLOADS}${JETBRAIN}.tar.gz -C ${DIR_DOWNLOADS}
+cd ${DIR_DOWNLOADS}${JETBRAIN} && ./jetbrains-toolbox
 
 ## ohMyZsh ##
 echo "Installing OhMyZsh...."
@@ -102,13 +102,18 @@ echo -e '\n. $HOME/.asdf/asdf.sh' >> $HOME/.zshrc
 ## plugins asdf ##
 # Java
 asdf plugin-add java https://github.com/halcyon/asdf-java.git
-asdf install java openjdk-18.0.2
-asdf global java openjdk-18.0.2
+asdf install java openjdk-22.0.2
+asdf global java openjdk-22.0.2
 
 # Python
 asdf plugin-add python https://github.com/asdf-community/asdf-python.git
-asdf install python 3.10.7
-asdf global python 3.10.7
+asdf install python 3.12.3
+asdf global python 3.12.3
+
+# Maven
+asdf plugin-add maven
+asdf install maven 3.9.6
+asdf global maven 3.9.6
 # ---------------------------------------------------------------------- #
 
 # ------------------------- Post-Installations ------------------------- #
