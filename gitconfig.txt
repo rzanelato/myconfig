@@ -32,22 +32,38 @@
     whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
     editor = vim
     excludesFile = ~/.gitignore
+	autocrlf = input
     
 [alias]
-	aa = add .
-	br = branch
-	st = status -sb
-	ck = checkout
+aa = add .
+	am = commit -am
+	ca = commit --amend
+	can = commit --amend --no-edit
+	co = checkout
 	cm = commit -m
-	ca = commit --amend --no-edit
+	cp = cherry-pick
+	cr = commit --amend --reset-author --no-edit
+	df = diff --color-words='[^[:space:]]'
+	db = branch -D
+	ft = fetch --all
+	lgd = log --graph --oneline --decorate=short --branches='*'
+	lo = log --oneline
+	lp = log -p
+	nb = checkout -b
 	pf = push --force-with-lease
 	pl = pull
+	pnb = push -u origin
 	ps = push
-	ft = fetch --all
-	lg = log -p
-	lo = log --graph --oneline --decorate=short --branches='*'
-	df = diff --color-words='[^[:space:]]'
+	rb = rebase
+	rba = rebase --abort
+	rbc = rebase --continue
+	rbi = rebase -i
+	rh = reset --hard
+	ss = stash
+	ssp = stash pop
 	sh = show --color-words='[^[:space:]]'
+	st = status -sb
+	up = !git fetch --all && git pull
 
 [push]
 	default = simple
