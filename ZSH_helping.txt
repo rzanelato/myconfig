@@ -1,0 +1,36 @@
+plugins=(
+    git 
+    mvn 
+    asdf
+    zsh-syntax-highlighting 
+    zsh-autosuggestions
+)
+
+
+# Alias
+alias ll='ls -lrt'
+alias ws='cd  ~/workspace'
+alias ows='cd ~/other_workspace' 
+
+alias mci='mvn clean install'
+
+# Export
+# asdf
+export ASDF_DATA_DIR="$HOME/.asdf"
+export PATH="$ASDF_DATA_DIR/shims:$PATH"
+
+# Java
+export JAVA_HOME=$ASDF_DATA_DIR/installs/java/openjdk-21.0.2
+export PATH=$JAVA_HOME/bin:$PATH
+
+# Maven
+export MAVEN_OPTS="--enable-native-access=ALL-UNNAMED"
+export M2_HOME=$ASDF_DATA_DIR/installs/maven/3.9.8
+export PATH=$M2_HOME/bin:$PATH
+
+# Python
+export PYTHON_HOME=$ASDF_DATA_DIR/installs/python/3.13.7
+export PATH=$PYTHON_HOME/bin:$PATH
+
+#Rust
+source "$HOME/.cargo/env"

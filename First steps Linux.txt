@@ -47,24 +47,27 @@ ssh-add -k ~/.ssh/id_ed25519 - passphrase
 ################################################
 
 ## ASDF (Package manager) - https://asdf-vm.com/guide/getting-started.html
-# Page
-https://alanvardy.com/post/asdf-on-arch
+# Page https://alanvardy.com/post/asdf-on-arch
 
 # Execute
-git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.18.0
 echo -e '\n. $HOME/.asdf/asdf.sh' >> ~/.zshrc
 
 ## Plugins
 # Java
-asdf plugin-add java https://github.com/halcyon/asdf-java.git
-asdf install java openjdk-18.0.2
-asdf global java openjdk-18.0.2
+asdf plugin add java https://github.com/halcyon/asdf-java.git
+asdf install java openjdk-21.0.2
+asdf set -u java openjdk-21.0.2
+
+# Maven
+asdf plugin add maven  https://github.com/halcyon/asdf-maven
+asdf install maven 3.9.8
+ asdf set -u maven 3.9.8
 
 # Python
-asdf plugin-add python https://github.com/asdf-community/asdf-python.git
-asdf install python 3.10.7
-asdf global python 3.10.7
-pip3.10 install boto3
+asdf plugin add python https://github.com/asdf-community/asdf-python.git
+asdf install python 3.13.7
+asdf set -u python 3.13.7
 
 # Add plugin in ZSH 
 plugins=(asdf)
